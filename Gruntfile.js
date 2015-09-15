@@ -22,7 +22,7 @@ module.exports = function (grunt) {
     // Configurable paths for the application
     var appConfig = {
         app: require('./bower.json').appPath || 'app',
-        dist: 'dist'
+        dist: 'www/resource/dist'
     };
 
     // Define the configuration for all the tasks
@@ -219,7 +219,7 @@ module.exports = function (grunt) {
         // concat, minify and revision files. Creates configurations in memory so
         // additional tasks can operate on them
         useminPrepare: {
-            html: '<%= yeoman.app %>/index.html',
+            html: 'App/View/pub_header.html',
             options: {
                 dest: '<%= yeoman.dist %>',
                 flow: {
