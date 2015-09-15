@@ -32,7 +32,7 @@ app.directive('musicBox', ['music', function (music) {
         '<div class="actions"></div>'+
         '    </div>' +
         '</div>'+
-        '<audio controls>中网音乐盒</audio>' +
+        '<audio controls></audio>' +
         '</div>',
         replace:true,
         restrict: 'E',
