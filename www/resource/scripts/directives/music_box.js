@@ -6,34 +6,10 @@
  * @description
  * # musicBox
  */
-app.directive('musicBox', ['music', function (music) {
+app.directive('musicBox', ['music', '$compile', function (music, $compile) {
 
     return {
-        template: '<div class="music box">' +
-        '<div class="ui icon input"><input type="text" placeholder="Search..." ng-model="musicModel.keywords" ng-keyup="enterSearch($event)"><i class="inverted circular search link icon red" ng-click="searchSongs()"></i>' +
-        '</div>' +
-        '<div class="ui icon buttons right floated">' +
-        '<a class="ui button blue" title="顺序播放" ng-click="musicModel.loop=\'list\'" ng-class="{\'active\':musicModel.loop==\'list\'}"><i class="icon recycle"></i></a>'+
-        '<a class="ui button green" title="单曲循环" ng-click="musicModel.loop=\'single\'" ng-class="{\'active\':musicModel.loop==\'single\'}"><i class="icon repeat"></i></a>'+
-        '<a class="ui button red" title="随机播放" ng-click="musicModel.loop=\'random\'" ng-class="{\'active\':musicModel.loop==\'random\'}"><i class="icon random"></i></a>'+
-        '</div>' +
-        '<div class="ui middle aligned selection list">' +
-        '    <div class="item" ng-repeat="song in songs">' +
-        '        <div class="content">' +
-        '            <div class="header" title="{{song.songname}}-{{song.artistname || \'未知歌手\'}}">' +
-        '<span>{{song.songname}}-{{song.artistname || \'未知歌手\'}}</span>' +
-        '<div class="ui icon buttons mini right floated">' +
-        '<button class="ui button" title="播放" ng-click="play(song.songid)"><i class="sound icon"></i></button>' +
-        '<button class="ui button" title="暂停" ng-click="pause()"><i class="pause icon"></i></button>' +
-        '<button class="ui button" title="歌词"><i class="send icon"></i></button>' +
-        '</div>' +
-        '</div>' +
-        '<div class="sub title"></div>'+
-        '<div class="actions"></div>'+
-        '    </div>' +
-        '</div>'+
-        '<audio controls></audio>' +
-        '</div>',
+        templateUrl: '/resource/views/musicBox.html',
         replace:true,
         restrict: 'E',
         link: function postLink(scope, element, attrs) {
@@ -74,7 +50,24 @@ app.directive('musicBox', ['music', function (music) {
 
             scope.pause = function(){
                 audioNode.pause();
-            }
+            };
+
+            scope.showLyric = function(songId){
+                if(scope.currentPlayId !== songId){
+                    music.getLyric(songId).success(function(data){
+                        if(data.error_code){
+                            alert('该音乐资源暂时没有歌词...');
+                        } else {
+                            scope.musicModel.wannerSeeLyric = true;
+                            scope.currentLyric = data;
+                        }
+                    });
+                }
+            };
+
+            scope.closeLyricWindow = function(){
+                scope.musicModel.wannerSeeLyric = false;
+            };
 
 
         }

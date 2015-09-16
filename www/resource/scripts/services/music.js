@@ -14,6 +14,9 @@ app.factory('music', ['api', function (api) {
         },
         getSong:function(songId){
             return api.jsonpPromise(api.getSongSource(songId));
+        },
+        getLyric:function(songId){
+            return api.jsonpPromise(api.getSongLyric(songId));
         }
     };
 }]);

@@ -1,3 +1,11 @@
 .pt10 {
   margin-top: 10px;
 }
+.animate-if.ng-enter.ng-enter-active {
+  -webkit-animation: flipInY;
+  animation: flipInY;
+}
+.animate-if.ng-leave.ng-leave-active {
+  -webkit-animation: flipOutY;
+  animation: flipOutY;
+}

@@ -35,25 +35,30 @@ app.factory('api',['$http', '$q', function($http, $q){
         jsonpPromise : jsonpPromise,
         getPromise : getPromise,
 
+        MusicApi:function(json){
+
+            var url = 'http://tingapi.ting.baidu.com/v1/restserver/ting?',
+                from = '&from=' + (json.from || 'webapp_music'),
+                method ='&method=' + (json.method || ''),
+                format = '&format=' + (json.format || 'json'),
+                callback = '&callback=' + (json.callback || 'JSON_CALLBACK'),
+                query = json.query ? '&query=' + json.query : '',
+                songId = json.songId ? '&songid='+ json.songId : '',
+                time = '&_=' + new Date().getTime();
+
+            return url + from + method + callback + query + songId + time;
+        },
+
         searchMusic:function(songName){
-            //return 'http://apis.baidu.com/geekery/music/query?apikey=4c575eceb45122c79beeed48908cb5fa&s=' + songName + '&limit=' + pageSize + '&p=' + pageIndex;
-            return 'http://tingapi.ting.baidu.com/v1/restserver/ting?' +
-                'from=webapp_music' +
-                '&method=baidu.ting.search.catalogSug' +
-                '&format=json' +
-                '&callback=JSON_CALLBACK' +
-                '&query=' + encodeURIComponent(songName) +
-                '&_=1413017198449';
+            return this.MusicApi({method:'baidu.ting.search.catalogSug', query: encodeURIComponent(songName)});
         },
 
         getSongSource:function(songId){
-            return 'http://tingapi.ting.baidu.com/v1/restserver/ting?' +
-                'from=webapp_music' +
-                '&method=baidu.ting.song.playAAC' +
-                '&songid='+ songId +
-                '&format=json' +
-                '&callback=JSON_CALLBACK' +
-                '&_=' + new Date().getTime();   //baidu.ting.song.play
+            return this.MusicApi({method:'baidu.ting.song.playAAC', songId: songId});
+        },
+
+        getSongLyric:function(songId){
+            return this.MusicApi({method:'baidu.ting.song.lry', songId: songId});
         }
     }
 }]);
