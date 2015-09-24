@@ -10,7 +10,7 @@ module.exports = Controller 'Home/BaseController', ->
 
 			req = http.request({
 				hostname: 'file.qianqian.com'
-				port: 80,
+				port: 80
 				path: source.replace 'http://file.qianqian.com/', ''
 				method: 'GET'
 				headers: {

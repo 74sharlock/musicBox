@@ -1,13 +1,21 @@
-/**
- * controller
- * @return 
- */
-module.exports = Controller("Home/BaseController", function(){
-  "use strict";
-  return {
-    indexAction: function(){
-      //render View/Home/index_index.html file
-      this.display();
-    }
-  };
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
 });
+
+var Actions = {
+
+    indexAction: function indexAction() {
+
+        this.display();
+    }
+
+};
+
+exports['default'] = Controller('Home/BaseController', function () {
+    return Actions;
+});
+module.exports = exports['default'];
+
+//# sourceMappingURL=IndexController.js.map

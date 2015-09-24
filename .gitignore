@@ -7,4 +7,3 @@ output.tar.gz
 sftp-config.json
 /.idea
 /npm-debug.log
-.idea/watcherTasks.xml
